@@ -3,6 +3,10 @@ var SETA_ESQUERDA = 37;
 var SETA_ACIMA = 38;
 var SETA_DIREITA = 39;
 var SETA_ABAIXO = 40;
+var SETA_W = 87;
+var SETA_A = 65;
+var SETA_S = 83;
+var SETA_D = 68;
 var ESPACO = 32;
 var ENTER = 13;
 

@@ -20,17 +20,17 @@ Nave.prototype = {
       var incremento =
          this.velocidade * this.animacao.decorrido / 1000;
 
-      if (this.teclado.pressionada(SETA_ESQUERDA) && this.x > 0)
+      if (this.teclado.pressionada(SETA_ESQUERDA && SETA_A) && this.x > 0)
          this.x -= incremento;
 
-      if (this.teclado.pressionada(SETA_DIREITA) &&
+      if (this.teclado.pressionada(SETA_DIREITA && SETA_D) &&
          this.x < this.context.canvas.width - 36)
          this.x += incremento;
 
-      if (this.teclado.pressionada(SETA_ACIMA) && this.y > 0)
+      if (this.teclado.pressionada(SETA_ACIMA && SETA_W) && this.y > 0)
          this.y -= incremento;
 
-      if (this.teclado.pressionada(SETA_ABAIXO) &&
+      if (this.teclado.pressionada(SETA_ABAIXO && SETA_S) &&
          this.y < this.context.canvas.height - 48)
          this.y += incremento;
       if (this.teclado.pressionada(ESPACO)) {
