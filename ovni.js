@@ -5,12 +5,23 @@ function Ovni(context, imagem, imgExplosao) {
    this.y = 0;
    this.velocidade = 0;
    this.imgExplosao = imgExplosao;
+   this.vPontos = 1500;
 }
 Ovni.prototype = {
    atualizar: function() {
       this.y += 
-         this.velocidade * this.animacao.decorrido / 1000;
-      
+         this.velocidade * this.animacao.decorrido / this.vPontos;
+
+      // Adição de uma verificação de pontos para aumentar velocidade
+      if(painel.pontuacao >= 500){
+         this.vPontos = 500;
+      }
+      else if(painel.pontuacao >= 200){
+         this.vPontos = 1000
+      }
+      else if(painel.pontuacao >=100){
+         this.vPontos = 1200
+      }
       if (this.y > this.context.canvas.height) {
          this.animacao.excluirSprite(this);
          this.colisor.excluirSprite(this);
