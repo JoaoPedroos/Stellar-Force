@@ -9,6 +9,7 @@
 - 6º Alterar as explosões;
 
 
+
 ## Minhas Atualizações para o Jogo
 
 - 1º Diminuir a velocidade dos inimigos no começo do jogo - OK!
