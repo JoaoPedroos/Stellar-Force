@@ -3,7 +3,7 @@
 
 - 1º Alterar o plano do fundo do jogo;
 - 2º Alterar a nave espacial do jogo;
-- 3º Fazer com que a nave atire para os lados e para a diagonal;
+- 3º Fazer com que a nave atire para os lados e para a diagonal; OK!
 - 4º Alterar os inimigos;
 - 5º Incluir outras animações no jogo, sons, pausa e vida extras (incluir amigos que dão vida extra);
 - 6º Alterar as explosões;
