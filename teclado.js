@@ -9,6 +9,8 @@ var SETA_S = 83;
 var SETA_D = 68;
 var ESPACO = 32;
 var ENTER = 13;
+var BARRA = 191;
+var PONTO = 190;
 
 function Teclado(elemento) {
    this.elemento = elemento;
