@@ -1,3 +1,4 @@
+
 function Nave(context, teclado, imagem, imgExplosao) {
    this.context = context;
    this.teclado = teclado;
@@ -12,8 +13,9 @@ function Nave(context, teclado, imagem, imgExplosao) {
    this.acabaramVidas = null;
    this.vidasExtras = 3;
    this.podeAtirar = true;
-   this.intervaloTiro = 150;
+   this.intervaloTiro = 100;
    this.ultimoTiro = 0;
+   this.trocaT = 0;
 }
 Nave.prototype = {
    atualizar: function () {
@@ -36,14 +38,26 @@ Nave.prototype = {
       if (this.teclado.pressionada(ESPACO)) {
          var agora = new Date().getTime(); // Obtém o tempo atual em ms
 
-         // 2. Verificar se o tempo mínimo entre tiros já passou
-      if (agora > this.ultimoTiro + this.intervaloTiro) {
-            // 3. Efetuar o disparo
+         // Verificar se o tempo mínimo entre tiros já passou
+      if (agora > this.ultimoTiro + this.intervaloTiro ) {
+            // Efetuar o disparo
             this.atirar();
 
-            // 4. Resetar o cronômetro
+            // Resetar o cronômetro
             this.ultimoTiro = agora;
+            
          }
+         
+      if(this.teclado.pressionada(BARRA)){
+         this.trocaT = 1;
+      }
+      else if(this.teclado.pressionada(PONTO)){
+         this.trocaT = 2;
+      }
+      else{
+         this.trocaT = 0;
+      }
+
       }
    },
    desenhar: function () {

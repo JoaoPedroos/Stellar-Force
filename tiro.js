@@ -2,6 +2,7 @@ var SOM_TIRO = new Audio();
 SOM_TIRO.src = 'snd/tiro.mp3';
 SOM_TIRO.volume = 0.2;
 SOM_TIRO.load();
+var decorrido = 0;
 
 function Tiro(context, nave) {
    this.context = context;
@@ -13,6 +14,7 @@ function Tiro(context, nave) {
    this.x = nave.x + 18;  // 36 / 2
    this.y = nave.y - this.altura;
    this.velocidade = 400;
+   this.trocaT = nave.trocaT;
    
    this.cor = 'yellow';
    SOM_TIRO.currentTime = 0.0;
@@ -20,9 +22,20 @@ function Tiro(context, nave) {
 }
 Tiro.prototype = {
    atualizar: function() {
-      this.y -= 
-         this.velocidade * this.animacao.decorrido / 1000;
+      decorrido = this.velocidade * this.animacao.decorrido / 1000;
       
+      if(this.trocaT == 0){
+         this.y -= decorrido;
+      }
+      else if(this.trocaT == 1){
+         this.y -= decorrido;
+         this.x += decorrido;
+      }
+      else if(this.trocaT == 2){
+         this.y -= decorrido;
+         this.x -= decorrido;
+      }
+
       // Excluir o tiro quando sumir da tela
       if (this.y < -this.altura) {
          this.animacao.excluirSprite(this);
