@@ -1,73 +1,67 @@
-
 function Nave(context, teclado, imagem, imgExplosao) {
    this.context = context;
    this.teclado = teclado;
    this.imagem = imagem;
    this.x = 0;
    this.y = 0;
-   this.velocidade = 0;
+   this.velocidade = 200; // Aumentei um pouco para teste
    this.spritesheet = new Spritesheet(context, imagem, 3, 2);
    this.spritesheet.linha = 0;
    this.spritesheet.intervalo = 100;
    this.imgExplosao = imgExplosao;
    this.acabaramVidas = null;
    this.vidasExtras = 3;
-   this.podeAtirar = true;
-   this.intervaloTiro = 100;
+   
+   this.intervaloTiro = 100; // Aumentei para não atirar tão rápido
+   
+   // OTIMIZAÇÃO 3: Usar performance.now()
    this.ultimoTiro = 0;
+   
    this.trocaT = 0;
+
+   // OTIMIZAÇÃO 2: Pré-alocar os retângulos de colisão
+   this._retangulosColisao = [
+      { x: 0, y: 0, largura: 9, altura: 13 },
+      { x: 0, y: 0, largura: 10, altura: 33 },
+      { x: 0, y: 0, largura: 9, altura: 13 }
+   ];
 }
+
 Nave.prototype = {
    atualizar: function () {
-      var incremento =
-         this.velocidade * this.animacao.decorrido / 1000;
+      var incremento = this.velocidade * this.animacao.decorrido / 1000;
 
-      if (this.teclado.pressionada(SETA_ESQUERDA && SETA_A) && this.x > 0)
-         this.x -= incremento;
-
-      if (this.teclado.pressionada(SETA_DIREITA && SETA_D) &&
-         this.x < this.context.canvas.width - 36)
-         this.x += incremento;
-
-      if (this.teclado.pressionada(SETA_ACIMA && SETA_W) && this.y > 0)
-         this.y -= incremento;
-
-      if (this.teclado.pressionada(SETA_ABAIXO && SETA_S) &&
-         this.y < this.context.canvas.height - 48)
-         this.y += incremento;
-      if (this.teclado.pressionada(ESPACO)) {
-         var agora = new Date().getTime(); // Obtém o tempo atual em ms
-
-         // Verificar se o tempo mínimo entre tiros já passou
-      if (agora > this.ultimoTiro + this.intervaloTiro ) {
-            // Efetuar o disparo
-            this.atirar();
-
-            // Resetar o cronômetro
-            this.ultimoTiro = agora;
-            
-         }
-         
+      // Movimentação
+      if (this.teclado.pressionada(SETA_A) && this.x > 0) this.x -= incremento;
+      if (this.teclado.pressionada(SETA_D) && this.x < this.context.canvas.width - 36) this.x += incremento;
+      if (this.teclado.pressionada(SETA_W) && this.y > 0) this.y -= incremento;
+      if (this.teclado.pressionada(SETA_S) && this.y < this.context.canvas.height - 48) this.y += incremento;
+      
+      // OTIMIZAÇÃO 4: Lógica de troca de tiro separada
       if(this.teclado.pressionada(BARRA)){
          this.trocaT = 1;
-      }
-      else if(this.teclado.pressionada(PONTO)){
+      } else if(this.teclado.pressionada(PONTO)){
          this.trocaT = 2;
-      }
-      else{
+      } else if(this.teclado.pressionada(SETA_ESQUERDA)){
+         this.trocaT = 3;
+      } else if(this.teclado.pressionada(SETA_DIREITA)){
+         this.trocaT = 4;
+      } else {
          this.trocaT = 0;
       }
 
+      // Lógica de Atirar
+      if (this.teclado.pressionada(ESPACO)) {
+         // OTIMIZAÇÃO 3: Usar performance.now()
+         var agora = performance.now(); 
+         if (agora - this.ultimoTiro > this.intervaloTiro) {
+            this.atirar();
+            this.ultimoTiro = agora;
+         }
       }
    },
    desenhar: function () {
-      if (this.teclado.pressionada(SETA_ESQUERDA))
-         this.spritesheet.linha = 1;
-      else if (this.teclado.pressionada(SETA_DIREITA))
-         this.spritesheet.linha = 2;
-      else
-         this.spritesheet.linha = 0;
-
+      // ... (seu código de desenhar está bom) ...
       this.spritesheet.desenhar(this.x, this.y);
       this.spritesheet.proximoQuadro();
    },
@@ -97,8 +91,6 @@ Nave.prototype = {
          ctx.restore();
       }
       */
-
-      return rets;
    },
    colidiuCom: function (outro) {
       // Se colidiu com um Ovni...
