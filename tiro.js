@@ -1,5 +1,5 @@
 var SOM_TIRO = new Audio('snd/tiro.mp3');
-SOM_TIRO.volume = 0.2;
+SOM_TIRO.volume = 0.1;
 SOM_TIRO.load();
 
 function Tiro(context, nave) {
