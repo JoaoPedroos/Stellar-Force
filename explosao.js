@@ -7,7 +7,7 @@ function Explosao(context, imagem, x, y) {
    this.context = context;
    this.imagem = imagem;
    this.spritesheet = new Spritesheet(context, imagem, 1, 5);
-   this.spritesheet.intervalo = 75;
+   this.spritesheet.intervalo = 75; // Velocidade da explosão
    this.x = x;
    this.y = y;
    this.animando = false;
@@ -24,10 +24,14 @@ function Explosao(context, imagem, x, y) {
 }
 Explosao.prototype = {
    atualizar: function() {
-      
+      // A spritesheet cuida da animação
    },
    desenhar: function() {
       this.spritesheet.desenhar(this.x, this.y);
       this.spritesheet.proximoQuadro();
+   },
+   // Remove retângulos de colisão para não dar erro
+   retangulosColisao: function() {
+      return [];
    }
 }

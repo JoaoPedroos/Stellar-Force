@@ -1,4 +1,4 @@
-// Códigos de teclas - aqui vão todos os que forem necessários
+// Códigos de teclas
 var SETA_ESQUERDA = 37;
 var SETA_ACIMA = 38;
 var SETA_DIREITA = 39;
@@ -9,30 +9,22 @@ var SETA_S = 83;
 var SETA_D = 68;
 var ESPACO = 32;
 var ENTER = 13;
-var BARRA = 191;
-var PONTO = 190;
+var BARRA = 191; // Tecla "/"
+var PONTO = 190; // Tecla "."
 
 function Teclado(elemento) {
    this.elemento = elemento;
-
-   // Array de teclas pressionadas
    this.pressionadas = [];
-
-   // Array de teclas disparadas
    this.disparadas = [];
-
-   // Funções de disparo registradas
    this.funcoesDisparo = [];
 
    var teclado = this;
 
    elemento.addEventListener('keydown', function(evento) {
-      var tecla = evento.keyCode;  // Tornando mais legível ;)
+      var tecla = evento.keyCode;
       teclado.pressionadas[tecla] = true;
 
-      // Disparar somente se for o primeiro keydown da tecla
       if (teclado.funcoesDisparo[tecla] && !teclado.disparadas[tecla]) {
-
           teclado.disparadas[tecla] = true;
           teclado.funcoesDisparo[tecla] () ;
       }
